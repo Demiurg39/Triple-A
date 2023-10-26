@@ -1,6 +1,6 @@
 Not e-comercial internet-markeplace.
 Mading by Triple-A group from Kyrgiz-German Institute of Aplied Informatics
 Triple-A:
-* Duyshembiev Aitegin
+* Diushembiev Aitegin
 * Sabyrbekov Aidin
 * Chiryagov Amir
