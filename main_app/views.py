@@ -1,7 +1,7 @@
 
 
 from django.shortcuts import render
-from django.views.generic import DetailView,ListView
+from django.views.generic import DetailView
 from .models import Games
 
 
@@ -17,3 +17,14 @@ class GamesDetailView(DetailView):
 def about_page(request):
     return render(request, 'about_page.html')
 
+def faq_page(request):
+    return render(request, 'faq_page.html')
+
+def cart_page(request):
+    return render(request, 'cart_page.html')
+
+def auth_page(request):
+    return render(request, 'auth_page.html')
+
+def top_game_page(request):
+    return render(request, 'top_game_page.html')
