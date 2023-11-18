@@ -31,4 +31,7 @@ class Games (models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return f'/main_app/{self.id}'
+
 
