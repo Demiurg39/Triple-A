@@ -132,7 +132,7 @@ EMAIL_USE_TLS = True
 # SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 # For send mail into console
-EMAIL_BACKEND = "django.core.mail.backends.consoke.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Auth urls
 
