@@ -31,7 +31,6 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -118,6 +117,10 @@ USE_TZ = True
 
 # Email config
 
+# Auth urls
+# LOGIN_REDIRECT_URL = #FIXME
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
