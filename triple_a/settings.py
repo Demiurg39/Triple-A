@@ -128,13 +128,15 @@ EMAIL_USE_TLS = True
 
 # For send mail to email address
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+# DEFAULT_FROM_EMAIL = "triple-a@ruru.be"
+# SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 # For send mail into console
 EMAIL_BACKEND = "django.core.mail.backends.consoke.EmailBackend"
 
 # Auth urls
 
-LOGIN_REDIRECT_URL = ""  # FIXME
+LOGIN_REDIRECT_URL = ""
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 
@@ -143,6 +145,8 @@ LOGOUT_URL = "logout"
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+MEDIA_URL = "media/"
+MEDIA_ROOT = [BASE_DIR / "media"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
