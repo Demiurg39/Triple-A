@@ -116,8 +116,24 @@ USE_I18N = True
 USE_TZ = True
 
 # Email config
+# Config for sendgrid smtp
+
+# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")  # Set as enveronment variable and uncomment
+
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = "SENDGRID_API_KEY"  # Instead of string use as variable
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# For send mail to email address
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+
+# For send mail into console
+EMAIL_BACKEND = "django.core.mail.backends.consoke.EmailBackend"
 
 # Auth urls
+
 # LOGIN_REDIRECT_URL = #FIXME
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
