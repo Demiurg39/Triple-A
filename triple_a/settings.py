@@ -134,7 +134,7 @@ EMAIL_BACKEND = "django.core.mail.backends.consoke.EmailBackend"
 
 # Auth urls
 
-# LOGIN_REDIRECT_URL = #FIXME
+LOGIN_REDIRECT_URL = ""  # FIXME
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 
