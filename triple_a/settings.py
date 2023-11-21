@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,12 +26,15 @@ SECRET_KEY = "django-insecure-h_jz#il9c61eu31qfk=skm()t07!4y$028b-kc0*1njgwepq+@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1",]
-
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
 
 # Application definition
 
 INSTALLED_APPS = [
+    "account.apps.AccountConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -111,12 +115,38 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Email config
+# Config for sendgrid smtp
+
+# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")  # Set as enveronment variable and uncomment
+
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = "SENDGRID_API_KEY"  # Instead of string use as variable
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# For send mail to email address
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+# DEFAULT_FROM_EMAIL = "triple-a@ruru.be"
+# SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+# For send mail into console
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Auth urls
+
+LOGIN_REDIRECT_URL = ""
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_FILES_BASE_DIR = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
+MEDIA_URL = "media/"
+MEDIA_ROOT = [BASE_DIR / "media"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
