@@ -10,7 +10,6 @@ class GamesAdmin(admin.ModelAdmin):
     search_fields = ["title", "description"]
     prepopulated_fields = {"slug": ("title",)}
     date_hierarchy = "added"
-    raw_id_fields = []
     ordering = ["-added"]
 
 
