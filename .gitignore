@@ -1,7 +1,6 @@
-venv
-.idea
-__pycache__/
- media
- db.sqlite3
-.envrc
 .direnv
+.envrc
+.venv
+venv
+__pycache__
+db.sqlite3
