@@ -1,7 +1,11 @@
-from django.core.exceptions import ValidationError
+# from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+
+
+def poster_upload_path(instance, filename):
+    return f"Games_images/{instance.slug}/{filename}"
 
 
 class SystemRequirements(models.Model):
@@ -23,8 +27,7 @@ class Games(models.Model):
     slug = models.SlugField("Slug field", max_length=50)
     rating = models.FloatField("Game rating")
     description = models.TextField("Game description")
-    # poster = models.ImageField("Game poster", upload_to=poster_upload_path)
-    poster = models.URLField("Game poster")
+    poster = models.ImageField("Game poster", upload_to=poster_upload_path)
     rent = models.FloatField("Rent cost per weak")
     buy = models.FloatField("Cost")
     systemreq = models.ForeignKey(
