@@ -4,11 +4,6 @@ from django.urls import reverse
 from django.utils import timezone
 
 
-def validate_rate(value):
-    if not (1.0 <= value <= 10.0):
-        raise ValidationError("Rate must be between 1.0 and 10.0")
-
-
 class SystemRequirements(models.Model):
     OS_version = models.CharField("Версия ОП", max_length=100)
     CPU = models.CharField("Пpoцeccop", max_length=100)
@@ -26,13 +21,11 @@ class SystemRequirements(models.Model):
 class Games(models.Model):
     title = models.CharField("Game title", max_length=50)
     slug = models.SlugField("Slug field", max_length=50)
-    rating = models.FloatField("Game rating", validators=[validate_rate])
+    rating = models.FloatField("Game rating")
     description = models.TextField("Game description")
-    poster = models.ImageField(
-        "Game poster",
-        upload_to=f"Games_images/{title}",
-    )
-    rent = models.FloatField("Rent cost for weak")
+    # poster = models.ImageField("Game poster", upload_to=poster_upload_path)
+    poster = models.URLField("Game poster")
+    rent = models.FloatField("Rent cost per weak")
     buy = models.FloatField("Cost")
     systemreq = models.ForeignKey(
         SystemRequirements,

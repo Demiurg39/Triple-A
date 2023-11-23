@@ -5,14 +5,12 @@ from .models import Games, SystemRequirements
 
 @admin.register(Games)
 class GamesAdmin(admin.ModelAdmin):
-    list_displays = ["title", "slug", "rating", "buy", "rent", "added"]
-    list_filters = ["title", "rating", "buy"]
+    list_display = ["title", "slug", "rating", "buy", "rent", "added"]
+    list_filter = ["title", "rating", "buy"]
     search_fields = ["title", "description"]
     prepopulated_fields = {"slug": ("title",)}
     date_hierarchy = "added"
-    ordering = ["-added"]
+    ordering = ["added"]
 
 
 admin.site.register(SystemRequirements)
-# @admin.register(SystemRequirements)
-# class
