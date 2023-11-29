@@ -2,11 +2,11 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-
+from django.contrib.auth.models import User
+import os
 
 def poster_upload_path(instance, filename):
-    return f"Games_images/{instance.slug}/{filename}"
-
+    return os.path.join("Games_images", instance.slug, filename)
 
 class SystemRequirements(models.Model):
     OS_version = models.CharField("Версия ОП", max_length=100)
@@ -21,7 +21,6 @@ class SystemRequirements(models.Model):
         verbose_name = "SystemRequirement"
         verbose_name_plural = "SystemRequirements"
 
-
 class Games(models.Model):
     title = models.CharField("Game title", max_length=50)
     slug = models.SlugField("Slug field", max_length=50)
@@ -33,7 +32,7 @@ class Games(models.Model):
     systemreq = models.ForeignKey(
         SystemRequirements,
         on_delete=models.CASCADE,
-        related_name="game_req",
+        related_name="game_requirements",
     )
     added = models.DateTimeField(default=timezone.now)
 
@@ -46,7 +45,20 @@ class Games(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse(
-            "main_app:game_detail",
-            args=[self.slug],
-        )
+        return reverse('main_app:game_detail', args=[str(self.slug)])
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    game = models.ForeignKey(Games, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['created_at']
+        indexes = [
+            models.Index(fields=['created_at']),
+        ]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.game.title} - {self.created_at}"

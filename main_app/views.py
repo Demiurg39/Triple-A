@@ -1,19 +1,71 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView, ListView
-
+from .forms import CommentForm
 from .models import Games
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+
+
+@login_required
+def add_comment(request, slug):
+    game = get_object_or_404(Games, slug=slug)
+    comment = None
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.game = game
+            comment.save()
+        return redirect('main_app:game_detail', slug=slug)
+    else:
+        form = CommentForm()
+    return render(request, 'add_comment.html', {'form': form, 'game': game, 'comment': comment})
+
 
 
 def main_page(request):
-    game = Games.objects.order_by()
-    return render(request, "main_app.html", {"main_page": game})
+    post_list = Games.objects.all()
+    paginator = Paginator(post_list, 3)
+    page_number = request.GET.get('page')
+    try:
+        games = paginator.page(page_number)
+    except PageNotAnInteger:
+        games = paginator.page(1)
+    except EmptyPage:
+        games = paginator.page(paginator.num_pages)
+    return render(request, "main_app.html", {"games": games})
+
 
 
 class GamesDetailView(DetailView):
     model = Games
     template_name = "details_view.html"
     context_object_name = "games"
+    slug_url_kwarg = 'slug'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comment_set.filter(active=True)
+        context['comment_form'] = CommentForm()
+        return context
+
+# @login_required
+# def add_comment(request, slug):
+#     game = get_object_or_404(Games, slug=slug)
+#     comment = None
+#     if request.method == 'POST':
+#         form = CommentForm(data=request.POST)
+#         if form.is_valid():
+#             comment = form.save(commit=False)
+#             comment.user = request.user
+#             comment.game = game
+#             comment.save()
+#         return redirect('main_app:game_detail', slug=slug)
+#     else:
+#         form = CommentForm()
+#     return render(request, 'add_comment.html', {'form': form, 'game': game, 'comment': comment})
 
 class Search(ListView):
     template_name = "main_app.html"
@@ -21,12 +73,18 @@ class Search(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return Games.objects.filter(title__icontans=self.request.GET.get("q"))
+        query = self.request.GET.get("q")
+        if query:
+            # Используем оператор Q для объединения условий поиска
+            return Games.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
+        else:
+            return Games.objects.none()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context["q"] = self.request.GET.get("q")
         return context
+
 
 
 def about_page(request):

@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- details_view.html -->
 
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}{{ game.title }}{% endblock %}
+
+{% block content %}
+
+    <h2>{{ games.title }}</h2>
+    <p>{{ games.description }}</p>
+    <!-- Дополнительная информация об игре, если необходимо -->
+
+    <!-- Список комментариев -->
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <div class="comment">
+            <p>{{ comment.text }} - {{ comment.user.username }}</p>
+            <p class="timestamp">{{ comment.created_at }}</p>
+        </div>
+    {% endfor %}
+
+    <!-- Форма для добавления комментария -->
+    <form method="post" action="{% if games.slug %}{% url 'main_app:add_comment' slug=games.slug %}{% endif %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
+
+{% endblock %}
+
+

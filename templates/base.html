@@ -1,0 +1,68 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Game Marketplace{% endblock %}</title>
+    <!-- Здесь могут быть ваши общие стили и скрипты -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>My Game Marketplace</h1>
+        <div class="nav-buttons">
+            <a href="{% url 'main_app:about' %}">About</a>
+            <a href="{% url 'main_app:faq' %}">FAQ</a>
+            <a href="{% url 'main_app:cart' %}">Cart</a>
+            <a href="{% url 'main_app:top_game' %}">Top Games</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+
+
+</body>
+</html>

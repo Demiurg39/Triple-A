@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TripleA</title>
-</head>
-<body>
+<!-- main_app.html -->
 
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Game List{% endblock %}
+
+{% block content %}
+    <h2>Game List</h2>
+
+    <!-- Форма поиска -->
+    <form method="get" action="{% url 'main_app:search' %}">
+        <input type="text" name="q" placeholder="Search by title or description" value="{{ q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Список найденных игр -->
+    {% for game in games %}
+        <div class="game">
+            <h3><a href="{% url 'main_app:game_detail' slug=game.slug %}">{{ game.title }}</a></h3>
+            <p>{{ game.description }}</p>
+            <!-- Дополнительная информация об игре, если необходимо -->
+        </div>
+    {% endfor %}
+
+    <!-- Пагинация -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if games.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ games.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ games.number }} of {{ games.paginator.num_pages }}.
+            </span>
+
+            {% if games.has_next %}
+                <a href="?page={{ games.next_page_number }}">next</a>
+                <a href="?page={{ games.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}
+
