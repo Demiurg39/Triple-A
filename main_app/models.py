@@ -1,10 +1,15 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
-from django.utils import timezone
 
 
 def poster_upload_path(instance, filename):
     return f"Games_images/{instance.slug}/{filename}"
+
+
+def validate_float_range(value):
+    if not 0 < value < 100:
+        raise ValidationError("Value must be between 0 and 100.")
 
 
 class Category(models.Model):
@@ -35,7 +40,7 @@ class SystemRequirements(models.Model):
 class Games(models.Model):
     name = models.CharField("Game title", max_length=250)
     slug = models.SlugField("Slug field", max_length=250)
-    rating = models.FloatField("Game rating")
+    rating = models.FloatField("Game rating", validators=[validate_float_range])
     description = models.TextField("Game description", blank=True)
     image = models.ImageField(
         "Game poster",
@@ -50,10 +55,9 @@ class Games(models.Model):
         on_delete=models.CASCADE,
         related_name="game_req",
     )
-    category = models.ForeignKey(
+    categories = models.ManyToManyField(
         Category,
-        on_delete=models.CASCADE,
-        related_name="category",
+        related_name="games",
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
