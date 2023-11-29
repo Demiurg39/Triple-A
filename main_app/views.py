@@ -1,18 +1,41 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView
 
-from .models import Games
+from cart.forms import CartAddGameForm
+
+from .models import Category, Games, SystemRequirements
 
 
-def main_page(request):
-    game = Games.objects.order_by()
-    return render(request, "main_app.html", {"main_page": game})
+def game_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    games = Games.objects.filter(available=True)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        games = Games.objects.filter(category=category, available=True)
+
+    return render(
+        request,
+        "game_list.html",
+        {
+            "category": category,
+            "categories": categories,
+            "games": games,
+        },
+    )
 
 
-class GamesDetailView(DetailView):
-    model = Games
-    template_name = "details_view.html"
-    context_object_name = "games"
+def game_detail(request, id, slug):
+    game = get_object_or_404(Games, id=id, slug=slug, available=True)
+    cart_game_form = CartAddGameForm()
+    return render(
+        request,
+        "details_view.html",
+        {
+            "game": game,
+            "cart_game_form": cart_game_form,
+        },
+    )
 
 
 class Search(ListView):
@@ -35,10 +58,6 @@ def about_page(request):
 
 def faq_page(request):
     return render(request, "faq_page.html")
-
-
-def cart_page(request):
-    return render(request, "cart_page.html")
 
 
 def top_game_page(request):
