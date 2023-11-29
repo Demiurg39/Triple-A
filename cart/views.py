@@ -32,4 +32,4 @@ def cart_remove(request, game_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, "cart/detai.html", {"cart": cart})
+    return render(request, "cart/detail.html", {"cart": cart})

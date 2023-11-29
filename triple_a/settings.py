@@ -54,6 +54,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+CART_SESSION_ID = "cart"
 ROOT_URLCONF = "triple_a.urls"
 
 TEMPLATES = [
