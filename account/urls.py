@@ -9,6 +9,7 @@ urlpatterns = [
     # URL for logout
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     # URL for registration
+    path("edit/", views.edit, name="edit"),
     path("register/", views.register, name="register"),
     # URL to reset, change password
     # password change
