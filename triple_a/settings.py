@@ -10,14 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-# import os
+import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.gruvbox
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for productiongruvbox
+# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -42,12 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "main_app.apps.MainAppConfig",
-    "cart.apps.CartConfig",
-]
-
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-    "account.authentication.EmailAuthBackend",
 ]
 
 MIDDLEWARE = [
@@ -60,7 +54,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CART_SESSION_ID = "cart"
 ROOT_URLCONF = "triple_a.urls"
 
 TEMPLATES = [
@@ -126,13 +119,13 @@ USE_TZ = True
 # Email config
 # Config for sendgrid smtp
 
-# Set enveronment variable and uncomment
-# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
-# EMAIL_HOST = "smtp.sendgrid.net"
-# EMAIL_HOST_USER = "apikey"
-# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")  # Set as enveronment variable and uncomment
+
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = "SENDGRID_API_KEY"  # Instead of string use as variable
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # For send mail to email address
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
@@ -144,7 +137,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Auth urls
 
-LOGIN_REDIRECT_URL = "game_list_main_page"
+LOGIN_REDIRECT_URL = ""
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 
