@@ -101,4 +101,4 @@ class Comment(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.user.username} - {self.game.title} - {self.created_at}"
+        return f"{self.user.username} - {self.game.name} - {self.created_at}"

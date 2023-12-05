@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main_app.apps.MainAppConfig",
     "cart.apps.CartConfig",
+    "social_django",
 ]
 
 AUTHENTICATION_BACKENDS = [
