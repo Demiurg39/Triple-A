@@ -22,6 +22,9 @@ class Category(models.Model):
         ordering = ["name"]
         indexes = [models.Index(fields=["name"])]
 
+    def __str__(self):
+        return self.name
+
 
 class SystemRequirements(models.Model):
     OS_version = models.CharField("Версия ОП", max_length=100)
@@ -57,7 +60,7 @@ class Games(models.Model):
     )
     categories = models.ManyToManyField(
         Category,
-        related_name="games",
+        related_name="categories",
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
