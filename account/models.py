@@ -12,7 +12,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
     )
     date_of_birth = models.DateField(blank=True, null=True)
-    photo = models.ImageField(upload_to=path_to_profile_photo)
+    photo = models.ImageField(upload_to=path_to_profile_photo, blank=True)
 
     def __str__(self):
         return f"Profile of {self.user.username}"

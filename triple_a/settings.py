@@ -42,6 +42,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "main_app.apps.MainAppConfig",
+    "cart.apps.CartConfig",
+]
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "account.authentication.EmailAuthBackend",
 ]
 
 MIDDLEWARE = [
@@ -54,6 +60,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+CART_SESSION_ID = "cart"
 ROOT_URLCONF = "triple_a.urls"
 
 TEMPLATES = [
@@ -119,13 +126,13 @@ USE_TZ = True
 # Email config
 # Config for sendgrid smtp
 
-# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")  # Set as enveronment variable and uncomment
-
-EMAIL_HOST = "smtp.sendgrid.net"
-EMAIL_HOST_USER = "apikey"
-EMAIL_HOST_PASSWORD = "SENDGRID_API_KEY"  # Instead of string use as variable
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# Set enveronment variable and uncomment
+# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+# EMAIL_HOST = "smtp.sendgrid.net"
+# EMAIL_HOST_USER = "apikey"
+# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
 
 # For send mail to email address
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
@@ -137,7 +144,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Auth urls
 
-LOGIN_REDIRECT_URL = ""
+LOGIN_REDIRECT_URL = "game_list_main_page"
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 
