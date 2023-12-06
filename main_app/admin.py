@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Games, SystemRequirements
+from .models import Category, Comment, Games, SystemRequirements
 
 
 @admin.register(Category)
@@ -25,6 +25,13 @@ class GamesAdmin(admin.ModelAdmin):
     search_fields = ["title", "description"]
     prepopulated_fields = {"slug": ("name",)}
     ordering = ["created"]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ["user", "game", "text", "created_at", "active"]
+    list_filter = ["active", "created_at"]
+    search_fields = ["user", "game", "text"]
 
 
 admin.site.register(SystemRequirements)
