@@ -3,9 +3,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, ListView
-
 from cart.forms import CartAddGameForm
-
 from .forms import CommentForm
 from .models import Category, Games, SystemRequirements
 
@@ -22,13 +20,13 @@ def game_list(request, category_slug=None):
     paginator = Paginator(post_list, 3)
     page_number = request.GET.get("page")
     try:
-        games = paginator.page(page_number)
+        page = paginator.page(page_number)
 
     except PageNotAnInteger:
-        games = paginator.page(1)
+        page = paginator.page(1)
 
     except EmptyPage:
-        games = paginator.page(paginator.num_pages)
+        page = paginator.page(paginator.num_pages)
 
     return render(
         request,
@@ -36,7 +34,7 @@ def game_list(request, category_slug=None):
         {
             "category": category,
             "categories": categories,
-            "games": games,
+            "page": page,
         },
     )
 
