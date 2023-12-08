@@ -19,7 +19,8 @@ class OrderAdmin(admin.ModelAdmin):
         "city",
         "postal_code",
         "paid",
-        "created" "updated",
+        "created",
+        "updated",
     ]
     list_filter = ["paid", "created", "updated"]
     inlines = [OrderItemInline]
