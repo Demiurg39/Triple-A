@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main_app.apps.MainAppConfig",
     "cart.apps.CartConfig",
+    "orders.apps.OrdersConfig",
     "social_django",
     "django_extensions",
 ]
