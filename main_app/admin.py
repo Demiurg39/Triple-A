@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import Category, Comment, Games, SystemRequirements
 
 
@@ -15,13 +14,12 @@ class GamesAdmin(admin.ModelAdmin):
         "name",
         "slug",
         "price",
-        "rent",
         "available",
         "created",
         "updated",
     ]
     list_filter = ["created", "updated", "available"]
-    list_editable = ["available", "price", "rent"]
+    list_editable = ["available", "price"]
     search_fields = ["title", "description"]
     prepopulated_fields = {"slug": ("name",)}
     ordering = ["created"]

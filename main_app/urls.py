@@ -13,12 +13,12 @@ urlpatterns = [
     ),
     path("game/<int:id>/<slug:slug>/", views.game_detail, name="game_detail"),
     path(
-        "game/<int:id>/<slug:slug>/add_comment/",
+        "game/<slug:slug>/add_comment/",
         views.add_comment,
         name="add_comment",
     ),
-    # path("about/", views.about_page, name="about"),
-    # path("faq/", views.faq_page, name="faq"),
-    # path("top_game/", views.top_game_page, name="top_game"),
+    path("about/", views.about_page, name="about"),
+    path("faq/", views.faq_page, name="faq"),
+    path("top_game/", views.top_game_page, name="top_game"),
     path("search/", views.Search.as_view, name="search"),
 ]

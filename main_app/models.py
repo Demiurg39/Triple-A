@@ -4,7 +4,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-
 def poster_upload_path(instance, filename):
     return f"Games_images/{instance.slug}/{filename}"
 
@@ -52,7 +51,6 @@ class Games(models.Model):
         upload_to=poster_upload_path,
         blank=True,
     )
-    rent = models.FloatField("Rent price per weak")
     price = models.DecimalField("Price", max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
     systemreq = models.ForeignKey(
@@ -76,6 +74,7 @@ class Games(models.Model):
             models.Index(fields=["name"]),
             models.Index(fields=["-created"]),
         ]
+
 
     def __str__(self):
         return self.name

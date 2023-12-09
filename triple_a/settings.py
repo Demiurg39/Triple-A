@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "main_app.apps.MainAppConfig",
     "cart.apps.CartConfig",
     "social_django",
+    "keys",
 ]
 
 AUTHENTICATION_BACKENDS = [
