@@ -1,49 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Your Game Store{% endblock %}</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Your Title Here{% endblock %}</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #444;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+
+    .container {
+      margin: 2rem;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'main_app:game_list_main_page' %}">Your Game Store</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'main_app:about' %}">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'main_app:faq' %}">FAQ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'cart:cart_detail' %}">Cart</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'main_app:top_game' %}">Top Games</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<!-- Content -->
-<div class="container mt-3">
+  <header>
+    <h1>{% block header %}Your Website{% endblock %}</h1>
+  </header>
+  <nav>
+    <a href="{% url 'main_app:game_list_main_page' %}">Home</a>
+    <a href="{% url 'main_app:about' %}">About</a>
+    <a href="{% url 'main_app:faq' %}">FAQ</a>
+    <a href="{% url 'main_app:top_game' %}">Top Games</a>
+  </nav>
+  <div class="container">
     {% block content %}{% endblock %}
-</div>
-
-<!-- Bootstrap JS and jQuery (order matters) -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+  </div>
+  <footer>
+    &copy; 2023 Your Company. All rights reserved.
+  </footer>
 </body>
 </html>

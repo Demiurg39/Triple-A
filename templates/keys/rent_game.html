@@ -1,19 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Аренда игры - {{ game.name }}</h2>
-    <form method="post" action="{% url 'rent_game' game.id game.slug %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Арендовать</button>
-    </form>
-
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+  <h1>Rent Game: {{ game.name }}</h1>
+  <form method="post" action="{% url 'keys:rent_game' game.id game.slug %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Rent Game</button>
+  </form>
 {% endblock %}
-

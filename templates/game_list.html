@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TripleA</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+  <h1 class="page-title">Games</h1>
+  <div class="games-container">
+    {% for game in games %}
+      <div class="game">
+        <h2 class="game-title">
+          <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}">
+            {{ game.name }}
+          </a>
+        </h2>
+        <img src="{{ game.image.url }}" alt="{{ game.name }}" class="game-image">
+        <p class="game-description">{{ game.description }}</p>
+        <p class="game-rating">Rating: {{ game.rating }}</p>
+        <p class="game-price">Price: ${{ game.price }}</p>
+        {% if game.available %}
+          <p class="available">Available</p>
+        {% else %}
+          <p class="not-available">Not Available</p>
+        {% endif %}
+        {% if game.systemreq %}
+          <p class="system-requirements">
+            System Requirements: {{ game.systemreq.OS_version }}, {{ game.systemreq.CPU }},
+            {{ game.systemreq.RAM }}GB RAM, {{ game.systemreq.GPU }}, {{ game.systemreq.Storage }}GB Storage
+          </p>
+        {% endif %}
+        <p class="game-categories">
+          Categories: {% for category in game.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+      {% if games.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ games.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ games.number }} of {{ games.paginator.num_pages }}.
+      </span>
+
+      {% if games.has_next %}
+        <a href="?page={{ games.next_page_number }}">next</a>
+        <a href="?page={{ games.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+{% endblock %}

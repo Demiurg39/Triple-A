@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+  <h1>{{ game.name }}</h1>
+  <img src="{{ game.image.url }}" alt="{{ game.name }}">
+
+  <p>{{ game.description }}</p>
+  <p>Rating: {{ game.rating }}</p>
+  <p>Price: ${{ game.price }}</p>
+  {% if game.available %}
+    <p>Available</p>
+  {% else %}
+    <p>Not Available</p>
+  {% endif %}
+  {% if game.systemreq %}
+    <p>System Requirements: {{ game.systemreq.OS_version }}, {{ game.systemreq.CPU }}, {{ game.systemreq.RAM }}GB RAM, {{ game.systemreq.GPU }}, {{ game.systemreq.Storage }}GB Storage</p>
+  {% endif %}
+  {% for category in game.categories.all %}
+    <p>Category: {{ category.name }}</p>
+  {% endfor %}
+
+  <form method="post" action="{% url 'cart:cart_add' game.id %}">
+    {% csrf_token %}
+    {{ cart_game_form.as_p }}
+    <button type="submit">Add to Cart</button>
+  </form>
+{% endblock %}
+

@@ -1,6 +1,3 @@
-.direnv
-.envrc
-.venv
 venv
 __pycache__
 db.sqlite3

@@ -1,8 +1,15 @@
+<!-- add_comment.html -->
+{% extends 'base.html' %}
 
+{% block content %}
+  <h2>Добавить комментарий</h2>
+  <h3>{{ game.name }}</h3>
 
-<h2>Add Comment</h2>
-<form method="post" action="">
+  <form method="post" action="{% url 'main_app:add_comment' game.slug %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+    <button type="submit">Добавить комментарий</button>
+  </form>
+
+  <a href="{% url 'main_app:game_detail' game.id game.slug %}">Назад к игре</a>
+{% endblock %}
