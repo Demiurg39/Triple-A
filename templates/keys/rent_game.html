@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>Rent Game: {{ game.name }}</h1>
-  <form method="post" action="{% url 'keys:rent_game' game.id game.slug %}">
+  <form method="post" action="{% url 'rent_game' game.id game.slug %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Rent Game</button>

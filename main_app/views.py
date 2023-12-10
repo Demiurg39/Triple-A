@@ -15,7 +15,6 @@ def game_list(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         games = Games.objects.filter(category=category, available=True)
-
     post_list = Games.objects.all()
     paginator = Paginator(post_list, 3)
     page_number = request.GET.get("page")
