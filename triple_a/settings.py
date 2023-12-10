@@ -46,11 +46,8 @@ INSTALLED_APPS = [
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
     "social_django",
-<<<<<<< HEAD
     "keys",
-=======
     "django_extensions",
->>>>>>> 0a208019a08f2779b5d389cb3212dabd48db353b
 ]
 
 AUTHENTICATION_BACKENDS = [
