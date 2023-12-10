@@ -17,4 +17,5 @@ urlpatterns = [
         name="add_comment",
     ),
     path("search/", views.Search.as_view, name="search"),
+    path("top_game/", views.top_games, name="top_game")
 ]

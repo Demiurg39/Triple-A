@@ -95,3 +95,11 @@ class Search(ListView):
         context = super().get_context_data(**kwargs)
         context["q"] = self.request.GET.get("q")
         return context
+
+def top_games(request):
+    top_rated_games = Games.objects.filter(available=True).order_by('-rating')[:5]
+    return render(
+        request,
+        "top_games_page.html",
+        {"top_rated_games": top_rated_games},
+    )
