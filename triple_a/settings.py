@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "social_django",
     "keys",
     "django_extensions",
+    "about",
 ]
 
 AUTHENTICATION_BACKENDS = [

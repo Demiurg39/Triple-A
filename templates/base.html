@@ -52,9 +52,7 @@
   </header>
   <nav>
     <a href="{% url 'main_app:game_list_main_page' %}">Home</a>
-    <a href="{% url 'main_app:about' %}">About</a>
-    <a href="{% url 'main_app:faq' %}">FAQ</a>
-    <a href="{% url 'main_app:top_game' %}">Top Games</a>
+    <a href="{% url 'about:about' %}">About</a>
   </nav>
   <div class="container">
     {% block content %}{% endblock %}

@@ -1,1 +1,44 @@
 {% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About App</title>
+</head>
+<body>
+
+    <header>
+        <h1>About App</h1>
+    </header>
+
+    <main>
+        <section id="profile-info">
+            <h2>User Profile</h2>
+            <p>Username: {{ user.username }}</p>
+            <p>Bio: {{ profile.bio }}</p>
+            <img src="{{ profile.image.url }}" alt="Profile Image">
+        </section>
+
+        <section id="description">
+            <p>Your app description goes here.</p>
+        </section>
+
+        <section id="features">
+            <h2>Key Features</h2>
+            <ul>
+                {% for feature in features %}
+                    <li>{{ feature.title }}: {{ feature.description }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Your App</p>
+    </footer>
+
+</body>
+</html>

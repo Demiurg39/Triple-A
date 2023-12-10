@@ -95,15 +95,3 @@ class Search(ListView):
         context = super().get_context_data(**kwargs)
         context["q"] = self.request.GET.get("q")
         return context
-
-
-def about_page(request):
-    return render(request, "about_page.html")
-
-
-def faq_page(request):
-    return render(request, "faq_page.html")
-
-
-def top_game_page(request):
-    return render(request, "top_game_page.html")
