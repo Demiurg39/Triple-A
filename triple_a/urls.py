@@ -21,15 +21,13 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("account/", include("account.urls")),
-    path("cart/", include("cart.urls")),
-    path("keys/", include("keys.urls")),
     path("account/", include("account.urls", namespace="account")),
-    path("social-auth/", include("social_django.urls", namespace="social")),
     path("cart/", include("cart.urls", namespace="cart")),
     path("orders/", include("orders.urls", namespace="orders")),
-    path("about/", include("about.urls", 'about')),
-    path("faq/", include("faq.urls", 'faq')),
+    path("social-auth/", include("social_django.urls", namespace="social")),
+    path("keys/", include("keys.urls")),
+    path("about/", include("about.urls", "about")),
+    path("faq/", include("faq.urls", "faq")),
     path("", include("main_app.urls")),
 ]
 
