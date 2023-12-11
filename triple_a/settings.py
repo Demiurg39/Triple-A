@@ -45,11 +45,12 @@ INSTALLED_APPS = [
     "main_app.apps.MainAppConfig",
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
+    "keys.apps.KeysConfig",
+    "about.apps.AboutConfig",
+    "faq.apps.FaqConfig",
+    "payment.apps.PaymentConfig",
     "social_django",
-    "keys",
     "django_extensions",
-    "about",
-    "faq",
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -180,12 +181,12 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Stripe APIs
 
-# STRIPE_PUB_KEY = os.getenv()
-# STRIPE_SEC_KEY = os.getenv()
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 
-STRIPE_PUBLISHABLE_KEY = ""
-STRIPE_SECRET_KEY = ""
-STRIPE_API_VERSION = ""
+STRIPE_PUBLISHABLE_KEY = STRIPE_PUBLISHABLE_KEY
+STRIPE_SECRET_KEY = STRIPE_SECRET_KEY
+STRIPE_API_VERSION = "2023-10-16"
 
 # Auth redirect urls
 
