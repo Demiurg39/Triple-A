@@ -175,9 +175,19 @@ USE_TZ = True
 # SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 # For send mail into console
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# Auth urls
+# Stripe APIs
+
+# STRIPE_PUB_KEY = os.getenv()
+# STRIPE_SEC_KEY = os.getenv()
+
+STRIPE_PUBLISHABLE_KEY = ""
+STRIPE_SECRET_KEY = ""
+STRIPE_API_VERSION = ""
+
+# Auth redirect urls
 
 LOGIN_REDIRECT_URL = "game_list_main_page"
 LOGIN_URL = "login"
