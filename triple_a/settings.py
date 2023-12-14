@@ -45,11 +45,12 @@ INSTALLED_APPS = [
     "main_app.apps.MainAppConfig",
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
+    "keys.apps.KeysConfig",
+    "about.apps.AboutConfig",
+    "faq.apps.FaqConfig",
+    "payment.apps.PaymentConfig",
     "social_django",
-    "keys",
     "django_extensions",
-    "about",
-    "faq",
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -175,9 +176,19 @@ USE_TZ = True
 # SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 # For send mail into console
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# Auth urls
+# Stripe APIs
+
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+
+STRIPE_PUBLISHABLE_KEY = STRIPE_PUBLISHABLE_KEY
+STRIPE_SECRET_KEY = STRIPE_SECRET_KEY
+STRIPE_API_VERSION = "2023-10-16"
+
+# Auth redirect urls
 
 LOGIN_REDIRECT_URL = "game_list_main_page"
 LOGIN_URL = "login"
