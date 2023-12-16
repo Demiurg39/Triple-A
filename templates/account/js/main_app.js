@@ -12,7 +12,7 @@ function loadFromLocalStorage(key) {
 
 // Обработчик события для формы поиска
 document.getElementById('searchForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Предотвращаем стандартное поведение формы
+    event.preventDefault(); 
     const searchTerm = document.getElementById('searchInput').value;
 
     // Проверка на пустой поисковый запрос
