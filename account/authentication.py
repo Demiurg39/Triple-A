@@ -4,7 +4,7 @@ from account.models import Profile
 
 
 class EmailAuthBackend:
-    """Authenticate via email address"""
+    """Authenticate using an e-mail address."""
 
     def authenticate(self, request, username=None, password=None):
         try:
@@ -12,8 +12,7 @@ class EmailAuthBackend:
             if user.check_password(password):
                 return user
             return None
-
-        except User.DoesNotExist:
+        except (User.DoesNotExist, User.MultipleObjectsReturned):
             return None
 
     def get_user(self, user_id):
@@ -23,7 +22,6 @@ class EmailAuthBackend:
             return None
 
 
-class create_profile(backend, user, *args, **kwargs):
-    """Create profile with social auth"""
-
+def create_profile(backend, user, *args, **kwargs):
+    """Create user profile for social authentication"""
     Profile.objects.get_or_create(user=user)
