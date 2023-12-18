@@ -1,29 +1,39 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'header.html' %}
+
+{% block title %}{{ game.name }} - TripleA{% endblock %}
+{% block header %}{{ game.name }}{% endblock %}
 
 {% block content %}
-  <h1>{{ game.name }}</h1>
-  <img src="{{ game.image.url }}" alt="{{ game.name }}">
-
-  <p>{{ game.description }}</p>
-  <p>Rating: {{ game.rating }}</p>
-  <p>Price: ${{ game.price }}</p>
-  {% if game.available %}
-    <p>Available</p>
-  {% else %}
-    <p>Not Available</p>
-  {% endif %}
-  {% if game.systemreq %}
-    <p>System Requirements: {{ game.systemreq.OS_version }}, {{ game.systemreq.CPU }}, {{ game.systemreq.RAM }}GB RAM, {{ game.systemreq.GPU }}, {{ game.systemreq.Storage }}GB Storage</p>
-  {% endif %}
-  {% for category in game.categories.all %}
-    <p>Category: {{ category.name }}</p>
-  {% endfor %}
-
-  <form method="post" action="{% url 'cart:cart_add' game.id %}">
-    {% csrf_token %}
-    {{ cart_game_form.as_p }}
-    <button type="submit">Add to Cart</button>
-  </form>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="width: 60%;">
+      <h3>{{ game.name }}</h3>
+      {% if game.image %}
+        <img src="{{ game.image.url }}" alt="{{ game.name }} Poster" style="max-width: 100%; height: auto; margin-bottom: 10px;">
+      {% endif %}
+      <p><strong>Rating:</strong> {{ game.rating }}</p>
+      <p><strong>Price:</strong> ${{ game.price }}</p>
+      <div style="margin-top: 10px;">
+        <form method="post" action="{% url 'cart:cart_add' game_id=game.id %}">
+          {% csrf_token %}
+          {{ cart_game_form }}
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+      </div>
+    </div>
+    <div style="width: 100%;">
+      <div style="margin-left: 20px;">
+        <p>{{ game.description }}</p>
+        <h4>System Requirements</h4>
+        <ul style="list-style-type: none; padding: 0;">
+          <li><strong>OS Version:</strong> {{ game.systemreq.OS_version }}</li>
+          <li><strong>CPU:</strong> {{ game.systemreq.CPU }}</li>
+          <li><strong>RAM:</strong> {{ game.systemreq.RAM }} GB</li>
+          <li><strong>GPU:</strong> {{ game.systemreq.GPU }}</li>
+          <li><strong>Storage:</strong> {{ game.systemreq.Storage }} GB</li>
+          <li><strong>Language (Dub):</strong> {{ game.systemreq.Language_dub }}</li>
+          <li><strong>Language (Sub):</strong> {{ game.systemreq.Language_sub }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 {% endblock %}
-

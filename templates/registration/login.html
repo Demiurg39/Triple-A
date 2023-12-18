@@ -1,35 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Django Project</title>
-</head>
-<body>
+{% extends 'header.html' %}
 
-    <header>
-        <h1>Welcome to Your Django Project</h1>
-        <!-- Add any header content here -->
-    </header>
+{% block title %}Login - TripleA{% endblock %}
+{% block header %}Login{% endblock %}
 
-    <nav>
-        <ul>
-            <li><a href="/admin/">Admin</a></li>
-            <li><a href="/account/">Account</a></li>
-            <li><a href="/cart/">Cart</a></li>
-            <!-- Add more navigation links based on your urlpatterns -->
-        </ul>
-    </nav>
+{% block content %}
+  <style>
+    #social-buttons {
+      text-align: center; /* Добавленный стиль для центрирования кнопок */
+       margin-top: 10px;
+    }
 
-    <main>
-        <!-- Your main content goes here -->
-        {% block content %}
-        {% endblock %}
-    </main>
+    #social-buttons a {
+      display: inline-block;
+      margin-right: 10px;
+    }
 
-    <footer>
-        <!-- Add footer content here -->
-    </footer>
+    #social-buttons img {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
+  <div style="width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="text-align: center; margin-bottom: 20px;">Login</h2>
+    <form method="post" action="{% url 'account:login' %}" style="text-align: center;">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" style="padding: 10px 15px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease;">Login</button>
+    </form>
 
-</body>
-</html>
+    <div style="margin-top: 20px; text-align: center;">
+      <a href="{% url 'account:password_reset' %}" style="color: #007bff; text-decoration: none;">Forgot Password?</a> |
+      <a href="{% url 'account:register' %}" style="color: #007bff; text-decoration: none;">Register</a>
+    </div>
+
+    <!-- Добавляем кнопки для входа через социальные сети с иконками -->
+    <div id="social-buttons">
+      <a href="{% url 'social:begin' 'google-oauth2' %}">
+        <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" alt="Google">
+      </a>
+      <a href="{% url 'social:begin' 'facebook' %}">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/1024px-2021_Facebook_icon.svg.png" alt="Facebook">
+      </a>
+    </div>
+  </div>
+{% endblock %}
