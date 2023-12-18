@@ -12,7 +12,7 @@ urlpatterns = [
     ),
     path("game/<int:id>/<slug:slug>/", views.game_detail, name="game_detail"),
     path(
-        "game/<slug:slug>/add_comment/",
+        "game/<int:id>/<slug:slug>/add_comment/",
         views.add_comment,
         name="add_comment",
     ),

@@ -191,9 +191,9 @@ STRIPE_API_VERSION = "2023-10-16"
 
 # Auth redirect urls
 
-LOGIN_REDIRECT_URL = "main_app:game_list_main_page"
-LOGIN_URL = "account:login"
-LOGOUT_URL = "account:logout"
+LOGIN_REDIRECT_URL = "game_list_main_page"
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

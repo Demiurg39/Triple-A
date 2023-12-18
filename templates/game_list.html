@@ -11,9 +11,7 @@
         <ul>
           {% for category in categories %}
             <li>
-              <a href="{% url 'main_app:game_list_by_category' category_slug=category.slug %}">
-                {{ category.name }}
-              </a>
+              <a href="{% url 'main_app:game_list_by_category' category_slug=category.slug %}">{{ category.name }}</a>
             </li>
           {% endfor %}
         </ul>
@@ -22,42 +20,20 @@
       {% endif %}
     </section>
 
-    <div id="header">
-      <div class="cart">
-        {% with total_items=cart|length %}
-          {% if total_items > 0 %}
-            Your cart:
-            <a href="{% url "cart:cart_detail" %}">
-              {{ total_items }} item{{ total_items|pluralize }},
-              ${{ cart.get_total_price }}
-            </a>
-          {% elif not order %}
-            Your cart is empty.
-          {% endif %}
-        {% endwith %}
-      </div>
-    </div>
-
     <section id="featured-games" style="float: left; width: 75%;">
       {% if games %}
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
           {% for game in games %}
             <div style="text-align: left; margin: 20px; width: 30%; border: 1px solid #ccc; padding: 15px; border-radius: 8px; overflow: hidden;">
-              <h3>
-                <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" style="margin-top: 10px; display: block; text-align: center; background-color: #333; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">
-                  {{ game.name }}
-                </a>
-              </h3>
+              <h3>{{ game.name }}</h3>
               {% if game.image %}
                 <img src="{{ game.image.url }}" alt="{{ game.name }} Poster" style="width: 100%; object-fit: cover; margin-bottom: 10px;">
               {% endif %}
               <p><strong>Rating:</strong> {{ game.rating }}</p>
               <p><strong>Price:</strong> ${{ game.price }}</p>
 
-              <!-- Move the information above with the "Details" button -->
-              <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" style="margin-top: 10px; display: block; text-align: center; background-color: #333; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">
-                Details
-              </a>
+              <!-- Перемещенная информация выше с кнопкой "Details" -->
+              <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" style="margin-top: 10px; display: block; text-align: center; background-color: #333; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">Details</a>
 
               <form method="post" action="{% url 'cart:cart_add' game_id=game.id %}">
                 {% csrf_token %}
