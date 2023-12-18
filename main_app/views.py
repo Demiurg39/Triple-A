@@ -4,9 +4,12 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
+
 from cart.forms import CartAddGameForm
+
 from .forms import CommentForm
-from .models import Category, Games, SystemRequirements
+from .models import Category, Games
+
 
 def game_list(request, category_slug=None):
     category = None
@@ -35,7 +38,6 @@ def game_list(request, category_slug=None):
             "page": page,
         },
     )
-
 
 
 @login_required
@@ -96,12 +98,11 @@ class Search(ListView):
         context["q"] = self.request.GET.get("q")
         return context
 
+
 def top_games(request):
-    top_rated_games = Games.objects.filter(available=True).order_by('-rating')[:5]
+    top_rated_games = Games.objects.filter(available=True).order_by("-rating")[:5]
     return render(
         request,
         "top_game_page.html",
         {"top_rated_games": top_rated_games},
     )
-
-
