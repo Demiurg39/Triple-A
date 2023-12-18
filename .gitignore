@@ -7,3 +7,5 @@ db.sqlite3
 .envrc
 .direnv
 .env
+media/Games_images
+media/people_images
