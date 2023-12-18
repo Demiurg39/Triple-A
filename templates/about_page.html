@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}О нас{% endblock %}
-{% block header %}О нас{% endblock %}
+{% block title %}About us{% endblock %}
+{% block header %}About us{% endblock %}
 
 {% block content %}
   <section id="features">
@@ -13,15 +13,18 @@
             <div style="text-align: left; margin-top: 10px;">
               <p>{{ feature.description }}</p>
             </div>
+
             {% if feature.person.all %}
               <h4>Сотрудники</h4>
               <div style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: flex-start;">
                 {% for person in feature.person.all %}
                   <div style="margin: 10px; width: 30%;">
                     <p>{{ person.name }}</p>
+
                     {% if person.image %}
                       <img src="{{ person.image.url }}" alt="{{ person.name }} Image" style="width: 65%; height: auto;">
                     {% endif %}
+
                     <p>{{ person.description }}</p>
                   </div>
                 {% endfor %}
