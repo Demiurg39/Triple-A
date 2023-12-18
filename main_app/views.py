@@ -4,12 +4,9 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
-
 from cart.forms import CartAddGameForm
-
 from .forms import CommentForm
-from .models import Category, Games
-
+from .models import Category, Games, SystemRequirements
 
 def game_list(request, category_slug=None):
     category = None
@@ -40,9 +37,10 @@ def game_list(request, category_slug=None):
     )
 
 
+
 @login_required
-def add_comment(request, slug):
-    game = get_object_or_404(Games, slug=slug)
+def add_comment(request, id, slug):
+    game = get_object_or_404(Games, id=id, slug=slug)
     comment = None
     if request.method == "POST":
         form = CommentForm(data=request.POST)
@@ -51,7 +49,7 @@ def add_comment(request, slug):
             comment.user = request.user
             comment.game = game
             comment.save()
-        return redirect("main_app:game_detail", slug=slug)
+        return redirect("main_app:add_comment", id= id, slug=slug)
     else:
         form = CommentForm()
     return render(
@@ -98,11 +96,12 @@ class Search(ListView):
         context["q"] = self.request.GET.get("q")
         return context
 
-
 def top_games(request):
-    top_rated_games = Games.objects.filter(available=True).order_by("-rating")[:5]
+    top_rated_games = Games.objects.filter(available=True).order_by('-rating')[:5]
     return render(
         request,
         "top_game_page.html",
         {"top_rated_games": top_rated_games},
     )
+
+

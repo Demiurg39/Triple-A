@@ -1,119 +1,108 @@
-{% extends 'header.html' %} {%block title %}Register - TripleA{%endblock %}
-{%block header %}Register{% endblock %} {%block content %}
-<style>
-  /* Стили для плавного появления и скрытия блока с кнопками */
-  #social-buttons {
-    opacity: 0;
-    visibility: hidden;
-    transition:
-      opacity 0.3s ease,
-      visibility 0.3s ease;
-    text-align: center;
-  }
+{% extends 'header.html' %}
 
-  .registration-form:hover #social-buttons {
-    opacity: 1;
-    visibility: visible;
-  }
+{% block title %}Register - TripleA{% endblock %}
+{% block header %}Register{% endblock %}
 
-  /* Центрирование формы */
-  .registration-form {
-    width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
-  }
+{% block content %}
+  <style>
+    /* Стили для плавного появления и скрытия блока с кнопками */
+    #social-buttons {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      text-align: center;
+    }
 
-  /* Выравнивание лейблов и полей по левому краю */
-  .registration-form label {
-    display: block;
-    margin-bottom: 5px;
-  }
+    .registration-form:hover #social-buttons {
+      opacity: 1;
+      visibility: visible;
+    }
 
-  .registration-form input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-  }
+    /* Центрирование формы */
+    .registration-form {
+      width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
 
-  .registration-form button {
-    width: 100%;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+    /* Выравнивание лейблов и полей по левому краю */
+    .registration-form label {
+      display: block;
+      margin-bottom: 5px;
+    }
 
-  .registration-form a {
-    margin-top: 20px;
-    display: block;
-    text-align: center;
-  }
+    .registration-form input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
 
-  /* Стили для социальных кнопок */
-  #social-buttons a {
-    display: inline-block;
-    margin-right: 10px;
-  }
+    .registration-form button {
+      width: 100%;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-  #social-buttons img {
-    width: 40px;
-    height: 40px;
-  }
-</style>
+    .registration-form a {
+      margin-top: 20px;
+      display: block;
+      text-align: center;
+    }
 
-<div class="registration-form">
-  <h2>Register</h2>
-  <form method="post" action="{% url 'account:register' %}">
-    {% csrf_token %}
-    <label for="id_username">Username:</label>
-    {{ user_form.username }}
+    /* Стили для социальных кнопок */
+    #social-buttons a {
+      display: inline-block;
+      margin-right: 10px;
+    }
 
-    <label for="id_other_field"
-      >Required. 150 characters or fewer. Letters, digits and @/./+/-/_
-      only:</label
-    >
-    {{ user_form.other_field }}
+    #social-buttons img {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
 
-    <label for="id_password">Password:</label>
-    {{ user_form.password }}
+  <div class="registration-form">
+    <h2>Register</h2>
+    <form method="post" action="{% url 'account:register' %}">
+      {% csrf_token %}
+      <label for="id_username">Username:</label>
+      {{ user_form.username }}
 
-    <label for="id_password2">Repeat password:</label>
-    {{ user_form.password2 }}
+      <label for="id_other_field">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only:</label>
+      {{ user_form.other_field }}
 
-    <label for="id_email">Email:</label>
-    {{ user_form.email }}
+      <label for="id_password">Password:</label>
+      {{ user_form.password }}
 
-    <button type="submit">Register</button>
-  </form>
+      <label for="id_password2">Repeat password:</label>
+      {{ user_form.password2 }}
 
-  <a
-    href="{% url 'account:login' %}"
-    style="color: #007bff; text-decoration: none"
-    >Already have an account? Login</a
-  >
+      <label for="id_email">Email:</label>
+      {{ user_form.email }}
 
-  <!-- Добавляем кнопки для регистрации через социальные сети с иконками -->
-  <div id="social-buttons">
-    <a href="{% url 'social:begin' 'google-oauth2' %}">
-      <img
-        src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png"
-        alt="Google"
-      />
-    </a>
-    <a href="{% url 'social:begin' 'facebook' %}">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/1024px-2021_Facebook_icon.svg.png"
-        alt="Facebook"
-      />
-    </a>
+      <button type="submit">Register</button>
+    </form>
+
+    <a href="{% url 'account:login' %}" style="color: #007bff; text-decoration: none;">Already have an account? Login</a>
+
+    <!-- Добавляем кнопки для регистрации через социальные сети с иконками -->
+    <div id="social-buttons">
+      <a href="{% url 'social:begin' 'google-oauth2' %}">
+        <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" alt="Google">
+      </a>
+      <a href="{% url 'social:begin' 'facebook' %}">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/1024px-2021_Facebook_icon.svg.png" alt="Facebook">
+      </a>
+    </div>
   </div>
-</div>
 {% endblock %}

@@ -5,7 +5,8 @@
 
 {% block content %}
   <div style="display: flex; justify-content: space-between;">
-    <div style="width: 60%;">
+
+    <div style="width: 70%;">
       <h3>{{ game.name }}</h3>
       {% if game.image %}
         <img src="{{ game.image.url }}" alt="{{ game.name }} Poster" style="max-width: 100%; height: auto; margin-bottom: 10px;">
@@ -20,20 +21,40 @@
         </form>
       </div>
     </div>
-    <div style="width: 100%;">
-      <div style="margin-left: 20px;">
-        <p>{{ game.description }}</p>
-        <h4>System Requirements</h4>
-        <ul style="list-style-type: none; padding: 0;">
-          <li><strong>OS Version:</strong> {{ game.systemreq.OS_version }}</li>
-          <li><strong>CPU:</strong> {{ game.systemreq.CPU }}</li>
-          <li><strong>RAM:</strong> {{ game.systemreq.RAM }} GB</li>
-          <li><strong>GPU:</strong> {{ game.systemreq.GPU }}</li>
-          <li><strong>Storage:</strong> {{ game.systemreq.Storage }} GB</li>
-          <li><strong>Language (Dub):</strong> {{ game.systemreq.Language_dub }}</li>
-          <li><strong>Language (Sub):</strong> {{ game.systemreq.Language_sub }}</li>
-        </ul>
-      </div>
+
+    <div style="width: 100%; margin-left: 20px;">
+      <p>{{ game.description }}</p>
+      <h4>System Requirements</h4>
+      <ul style="list-style-type: none; padding: 0;">
+        <li><strong>OS Version:</strong> {{ game.systemreq.OS_version }}</li>
+        <li><strong>CPU:</strong> {{ game.systemreq.CPU }}</li>
+        <li><strong>RAM:</strong> {{ game.systemreq.RAM }} GB</li>
+        <li><strong>GPU:</strong> {{ game.systemreq.GPU }}</li>
+        <li><strong>Storage:</strong> {{ game.systemreq.Storage }} GB</li>
+        <li><strong>Language (Dub):</strong> {{ game.systemreq.Language_dub }}</li>
+        <li><strong>Language (Sub):</strong> {{ game.systemreq.Language_sub }}</li>
+      </ul>
     </div>
+
+  </div>
+
+  <div style="margin-top: 20px;">
+    <h4>Comments</h4>
+    {% if request.user.is_authenticated %}
+      <form method="post" action="{% url 'main_app:add_comment' id=game.id slug=game.slug %}">
+        {% csrf_token %}
+        {{ form.text }}
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+      </form>
+    {% else %}
+      <p><a href="{% url 'login' %}">Log in</a> to add comments.</p>
+    {% endif %}
+
+    {% for comment in game.comment_set.all %}
+      <div style="border: 1px solid #ddd; padding: 10px; margin-top: 10px;">
+        <p>{{ comment.text }}</p>
+        <p style="color: #777; font-size: 12px;">- {{ comment.user.username }}</p>
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}
