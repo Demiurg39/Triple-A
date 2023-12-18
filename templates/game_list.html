@@ -1,12 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'header.html' %}
 
-{% block title %}
-  TripleA - Home
-{% endblock %}
-
-{% block header %}
-  Welcome to TripleA
-{% endblock %}
+{% block title %}Home{% endblock %}
+{% block header %}Welcome to TripleA{% endblock %}
 
 {% block content %}
   <section id="main-content" style="margin-bottom: 100px;">
@@ -54,7 +49,7 @@
                 </a>
               </h3>
               {% if game.image %}
-                <img src="{{ game.image.url }}" alt="{{ game.name }} Poster" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 10px;">
+                <img src="{{ game.image.url }}" alt="{{ game.name }} Poster" style="width: 100%; object-fit: cover; margin-bottom: 10px;">
               {% endif %}
               <p><strong>Rating:</strong> {{ game.rating }}</p>
               <p><strong>Price:</strong> ${{ game.price }}</p>

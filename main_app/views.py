@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from cart.forms import CartAddGameForm
 from .forms import CommentForm
@@ -76,7 +77,7 @@ def game_detail(request, id, slug):
 
 
 class Search(ListView):
-    template_name = "game_detail.html"
+    template_name = "details_view.html"
     context_object_name = "game"
     paginate_by = 5
 
@@ -85,7 +86,7 @@ class Search(ListView):
         if query:
             # Используем оператор Q для объединения условий поиска
             return Games.objects.filter(
-                Q(title__icontains=query) | Q(description__icontains=query)
+                Q(name__icontains=query) | Q(description__icontains=query)
             )
         else:
             return Games.objects.none()
