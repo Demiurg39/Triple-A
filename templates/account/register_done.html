@@ -1,0 +1,12 @@
+<!-- Ваш файл register_done.html -->
+{% extends 'header.html' %}
+
+{% block title %}Registration Successful - TripleA{% endblock %}
+{% block header %}Registration Successful{% endblock %}
+
+{% block content %}
+  <div style="width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
+    <h2>Registration Successful</h2>
+    <p>Thank you for registering with us. You can now <a href="{% url 'account:login' %}">log in</a>.</p>
+  </div>
+{% endblock %}
