@@ -163,21 +163,22 @@ USE_TZ = True
 # Config for sendgrid smtp
 
 # Set enveronment variable and uncomment
-# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
-# EMAIL_HOST = "smtp.sendgrid.net"
-# EMAIL_HOST_USER = "apikey"
-# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # For send mail to email address
-# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-# DEFAULT_FROM_EMAIL = "triple-a@ruru.be"
-# SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+DEFAULT_FROM_EMAIL = "triple-a@ruru.be"
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
 # For send mail into console
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Stripe APIs
 
