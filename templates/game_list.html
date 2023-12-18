@@ -1,52 +1,50 @@
 {% extends 'base.html' %}
-{% load static %}
+
+{% block title %}TripleA - Home{% endblock %}
+{% block header %}Welcome to TripleA{% endblock %}
 
 {% block content %}
-  <h1 class="page-title">Games</h1>
-  <div class="games-container">
-    {% for game in games %}
-      <div class="game">
-        <h2 class="game-title">
-          <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}">
-            {{ game.name }}
-          </a>
-        </h2>
-        <img src="{{ game.image.url }}" alt="{{ game.name }}" class="game-image">
-        <p class="game-description">{{ game.description }}</p>
-        <p class="game-rating">Rating: {{ game.rating }}</p>
-        <p class="game-price">Price: ${{ game.price }}</p>
-        {% if game.available %}
-          <p class="available">Available</p>
-        {% else %}
-          <p class="not-available">Not Available</p>
-        {% endif %}
-        {% if game.systemreq %}
-          <p class="system-requirements">
-            System Requirements: {{ game.systemreq.OS_version }}, {{ game.systemreq.CPU }},
-            {{ game.systemreq.RAM }}GB RAM, {{ game.systemreq.GPU }}, {{ game.systemreq.Storage }}GB Storage
-          </p>
-        {% endif %}
-        <p class="game-categories">
-          Categories: {% for category in game.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
-        </p>
-      </div>
-    {% endfor %}
-  </div>
-  <div class="pagination">
-    <span class="step-links">
-      {% if games.has_previous %}
-        <a href="?page=1">&laquo; first</a>
-        <a href="?page={{ games.previous_page_number }}">previous</a>
+  <section id="main-content" style="margin-bottom: 100px;">
+    <section id="categories" style="float: left; width: 20%; margin-right: 5%;">
+      <h2>Categories</h2>
+      {% if categories %}
+        <ul>
+          {% for category in categories %}
+            <li>
+              <a href="{% url 'main_app:game_list_by_category' category_slug=category.slug %}">{{ category.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No categories available.</p>
       {% endif %}
+    </section>
 
-      <span class="current">
-        Page {{ games.number }} of {{ games.paginator.num_pages }}.
-      </span>
+    <section id="featured-games" style="float: left; width: 75%;">
+      {% if games %}
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+          {% for game in games %}
+            <div style="text-align: left; margin: 20px; width: 30%; border: 1px solid #ccc; padding: 15px; border-radius: 8px; overflow: hidden;">
+              <h3>{{ game.name }}</h3>
+              {% if game.image %}
+                <img src="{{ game.image.url }}" alt="{{ game.name }} Poster" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 10px;">
+              {% endif %}
+              <p><strong>Rating:</strong> {{ game.rating }}</p>
+              <p><strong>Price:</strong> ${{ game.price }}</p>
 
-      {% if games.has_next %}
-        <a href="?page={{ games.next_page_number }}">next</a>
-        <a href="?page={{ games.paginator.num_pages }}">last &raquo;</a>
+              <!-- Перемещенная информация выше с кнопкой "Details" -->
+              <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" style="margin-top: 10px; display: block; text-align: center; background-color: #333; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">Details</a>
+
+              <form method="post" action="{% url 'cart:cart_add' game_id=game.id %}">
+                {% csrf_token %}
+                <input type="submit" value="Add to Cart" style="margin-top: 10px; display: block; text-align: center; background-color: #444; color: white; padding: 10px; text-decoration: none; border-radius: 5px; cursor: pointer;">
+              </form>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No games available.</p>
       {% endif %}
-    </span>
-  </div>
+    </section>
+  </section>
 {% endblock %}

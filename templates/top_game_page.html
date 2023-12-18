@@ -1,36 +1,89 @@
 {% extends 'base.html' %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>Top Rated Games</title>
-</head>
-<body>
+{% block title %}Top Games{% endblock %}
+{% block header %}Top Games{% endblock %}
 
-    <header>
-        <h1>Top Rated Games</h1>
-    </header>
+{% block content %}
+  <style>
+    /* Стили для top-games_page */
+    #top-games {
+      padding: 20px;
+    }
 
-    <main>
-        <section id="top-rated-list">
-            <ul>
-                {% for game in top_rated_games %}
-                    <li>
-                        <h2>{{ game.title }}</h2>
-                        <p><strong>Rating:</strong> {{ game.rating }}</p>
-                        <!-- Дополнительная информация по желанию -->
-                    </li>
-                {% endfor %}
-            </ul>
-        </section>
-    </main>
+    .game-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Центрируем игры по горизонтали */
+    }
 
-    <footer>
-        <p>&copy; 2023 Your App</p>
-    </footer>
+    .game-item {
+      text-align: left;
+      margin: 20px;
+      width: 300px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 8px;
+    }
 
-</body>
-</html>
+    .game-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .game-details {
+      margin-top: 10px;
+    }
+
+    .game-rating {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: block;
+      margin-top: 10px; /* Отступ кнопки Details от остальных элементов */
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Новые стили для кнопки Details */
+    .btn-details {
+      background-color: #333;
+      padding: 8px 12px;
+      width: 42%;
+      font-size: 14px;
+    }
+  </style>
+
+  <section id="top-games">
+    <div class="game-list">
+      {% if top_rated_games %}
+        {% for game in top_rated_games %}
+          <div class="game-item">
+            <img src="{{ game.image.url }}" alt="{{ game.name }} Image" class="game-image">
+            <div class="game-details">
+              <h3>{{ game.name }}</h3>
+              <p class="game-rating"><strong>Rating:</strong> {{ game.rating }}</p>
+              <form method="post" action="{% url 'cart:cart_add' game.id %}">
+                {% csrf_token %}
+                {{ cart_game_form }}
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+              </form>
+              <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" class="btn btn-details">Подробнее об игре</a>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No top-rated games available.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

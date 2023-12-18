@@ -26,8 +26,8 @@ class Company(models.Model):
 class Feature(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
+    person = models.ManyToManyField(Person, related_name='person')
+    company = models.ManyToManyField(Company, related_name='company')
 
     class Meta:
         verbose_name = "Feature"

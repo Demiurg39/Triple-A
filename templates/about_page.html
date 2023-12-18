@@ -1,43 +1,37 @@
 {% extends 'base.html' %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About App</title>
-</head>
-<body>
+{% block title %}О нас{% endblock %}
+{% block header %}О нас{% endblock %}
 
-    <header>
-        <h1>About App</h1>
-    </header>
-
-    <main>
-        <section id="profile-info">
-            <h2>User Profile</h2>
-            <p>Username: {{ user.username }}</p>
-            <p>Bio: {{ profile.bio }}</p>
-            <img src="{{ profile.image.url }}" alt="Profile Image">
-        </section>
-
-        <section id="description">
-            <p>Your app description goes here.</p>
-        </section>
-
-        <section id="features">
-            <h2>Key Features</h2>
-            <ul>
-                {% for feature in features %}
-                    <li>{{ feature.title }}: {{ feature.description }}</li>
+{% block content %}
+  <section id="features">
+    {% if features %}
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+        {% for feature in features %}
+          <div style="text-align: center; margin: 20px; width: 75%;">
+            <h3>{{ feature.title }}</h3>
+            <div style="text-align: left; margin-top: 10px;">
+              <p>{{ feature.description }}</p>
+            </div>
+            {% if feature.person.all %}
+              <h4>Сотрудники</h4>
+              <div style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: flex-start;">
+                {% for person in feature.person.all %}
+                  <div style="margin: 10px; width: 30%;">
+                    <p>{{ person.name }}</p>
+                    {% if person.image %}
+                      <img src="{{ person.image.url }}" alt="{{ person.name }} Image" style="width: 65%; height: auto;">
+                    {% endif %}
+                    <p>{{ person.description }}</p>
+                  </div>
                 {% endfor %}
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2023 Your App</p>
-    </footer>
-
-</body>
-</html>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No features available.</p>
+    {% endif %}
+  </section>
+{% endblock %}

@@ -7,23 +7,20 @@ from cart.forms import CartAddGameForm
 from .forms import CommentForm
 from .models import Category, Games, SystemRequirements
 
-
 def game_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
     games = Games.objects.filter(available=True)
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        games = Games.objects.filter(category=category, available=True)
+        games = Games.objects.filter(categories=category, available=True)
     post_list = Games.objects.all()
     paginator = Paginator(post_list, 3)
     page_number = request.GET.get("page")
     try:
         page = paginator.page(page_number)
-
     except PageNotAnInteger:
         page = paginator.page(1)
-
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
 
@@ -31,11 +28,13 @@ def game_list(request, category_slug=None):
         request,
         "game_list.html",
         {
+            "games": games,
             "category": category,
             "categories": categories,
             "page": page,
         },
     )
+
 
 
 @login_required
@@ -77,8 +76,8 @@ def game_detail(request, id, slug):
 
 
 class Search(ListView):
-    template_name = "game_list.html"
-    context_object_name = "games"
+    template_name = "game_detail.html"
+    context_object_name = "game"
     paginate_by = 5
 
     def get_queryset(self):
@@ -100,6 +99,8 @@ def top_games(request):
     top_rated_games = Games.objects.filter(available=True).order_by('-rating')[:5]
     return render(
         request,
-        "top_games_page.html",
+        "top_game_page.html",
         {"top_rated_games": top_rated_games},
     )
+
+
