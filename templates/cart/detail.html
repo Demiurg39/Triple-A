@@ -11,11 +11,12 @@
     <thead>
       <tr>
         <th>Image</th>
-        <th>Product</th>
+        <th>Game</th>
         <th>Quantity</th>
         <th>Remove</th>
         <th>Unit price</th>
         <th>Price</th>
+        <th>Rent Key</th>  <!-- Added column for Rent Key -->
       </tr>
     </thead>
     <tbody>
@@ -23,10 +24,10 @@
         {% with game=item.game %}
           <tr>
             <td>
-              <a href="{{ game.get_absolute_url }}">
+            <a href="{{ game.get_absolute_url }}">
                 <img src="{% if game.image %}{{ game.image.url }}
                 {% else %}{% static "img/no_image.png" %}{% endif %}">
-              </a>
+            </a>
             </td>
             <td>{{ game.name }}</td>
             <td>
@@ -45,12 +46,15 @@
             </td>
             <td class="num">${{ item.price }}</td>
             <td class="num">${{ item.total_price }}</td>
+            <td>
+              <a href="{% url 'rent_game' id=game.id slug=game.slug %}" class="button">Rent Key</a>
+            </td>
           </tr>
         {% endwith %}
       {% endfor %}
       <tr class="total">
         <td>Total</td>
-        <td colspan="4"></td>
+        <td colspan="5"></td>
         <td class="num">${{ cart.get_total_price }}</td>
       </tr>
     </tbody>

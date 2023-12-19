@@ -6,94 +6,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Your Title Here{% endblock %}</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-
-    #logo {
-      float: left;
-      margin: 10px;
-      height: 50px;
-      filter: brightness(20%);
-    }
-
-    #profile-icon {
-      float: right;
-      margin: 10px;
-      height: 50px;
-      filter: brightness(20%);
-    }
-
-    #cart-icon {
-      float: right;
-      margin: 10px;
-      height: 50px;
-      filter: brightness(20%);
-    }
-
-    header {
-      background-color: #333;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    nav {
-      background-color: #444;
-      padding: 0.5rem;
-      text-align: center;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-    }
-
-    nav a:nth-child(3) {
-      margin-right: auto;
-      margin-left: auto;
-    }
-
-    h1 {
-      clear: both;
-      text-align: center;
-    }
-
-    .container {
-      margin: 2rem;
-    }
-
-    /* Стили для поисковика */
-    .search-container {
-      width: 100%;
-      text-align: center;
-      margin: 1rem 0;
-    }
-
-    .search-input {
-      width: 70%;
-      padding: 0.5rem;
-    }
-
-    .search-button {
-      padding: 0.5rem 1rem;
-    }
-
-  </style>
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
 </head>
 <body>
   <header>
     <a href="{% url 'main_app:game_list_main_page' %}">
       <img id="logo" src="https://i.ibb.co/30jf2b0/Triple-A-logo-removebg-preview.png" alt="TripleA">
     </a>
-    <a href="{% url 'account:login' %}">
+ <span class="user">
+      {% if request.user.is_authenticated %}
+        <div class="user-greeting">
+          <p>Hello {{ request.user.first_name|default:request.user.username }},</p>
+          <p><a href="{% url 'account:logout' %}">Logout</a></p>
+          <p><a href="{% url 'account:edit' %}">Edit</a></p>
+        </div>
+      {% else %}
+        <a href="{% url "account:login" %}">
       <img id="profile-icon" src="https://i.ibb.co/jyt3Nnb/icon-2-removebg-preview.png" alt="Profile">
-    </a>
+</a>
+      {% endif %}
     <a href="{% url 'cart:cart_detail' %}">
       <img id="cart-icon" src="https://i.ibb.co/V90YSQJ/360-F-314846831-5j-Js-C7-Us9obgw-Mj-RDq-Fhs04dodzvn-Zvi-removebg-preview.png" alt="Cart">
     </a>
@@ -105,15 +36,9 @@
     <a href="{% url 'about:about' %}">About</a>
     <a href="{% url 'faq:faq' %}">FAQ</a>
   </nav>
-  <!-- Поисковик -->
-  <div class="search-container">
-    <form action="{% url 'main_app:search' %}" method="get">
-      <input type="text" name="q" class="search-input" placeholder="Search...">
-      <button type="submit" class="search-button">Search</button>
-    </form>
-  </div>
   <div class="container">
     {% block content %}{% endblock %}
   </div>
+  {% include "footer.html" %}
 </body>
 </html>

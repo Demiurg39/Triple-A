@@ -1,10 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'header.html' %}
 
 {% block content %}
-  <h1>Rent Game: {{ game.name }}</h1>
-  <form method="post" action="{% url 'rent_game' game.id game.slug %}">
+  <h2>Аренда игры: {{ game.name }}</h2>
+
+  <form method="post" action="{% url 'rent_game' id=game.id slug=game.slug %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Rent Game</button>
+
+    <button type="submit">Арендовать</button>
   </form>
+
+  <a href="{% url 'cart:cart_detail' %}">Вернуться в корзину</a>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.urls import path
+
 from . import views
 
 app_name = "main_app"
@@ -12,11 +13,10 @@ urlpatterns = [
     ),
     path("game/<int:id>/<slug:slug>/", views.game_detail, name="game_detail"),
     path(
-        "game/<slug:slug>/add_comment/",
+        "game/<int:id>/<slug:slug>/add_comment/",
         views.add_comment,
         name="add_comment",
     ),
     path("search/", views.Search.as_view(), name="search"),
     path("top-games/", views.top_games, name="top_games"),
 ]
-

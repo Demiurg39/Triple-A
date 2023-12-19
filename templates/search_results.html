@@ -1,0 +1,18 @@
+{% extends 'header.html' %} {% block content %}
+<h1>Search Results</h1>
+
+{% if games %}
+<ul>
+  {% for game in games %}
+  <li>
+    <a href="{{ game.get_absolute_url }}">{{ game.name }}</a>
+    <p>{{ game.description }}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No results found.</p>
+{% endif %}
+
+<p><a href="{% url 'main_app:game_list_main_page' %}">Back to game list</a></p>
+{% endblock %}
