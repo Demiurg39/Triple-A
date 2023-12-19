@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Category, Comment, Games, SystemRequirements
 
 
@@ -28,6 +29,7 @@ class GamesAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ["user", "game", "text", "created_at", "active"]
+    list_editable = ["active"]
     list_filter = ["active", "created_at"]
     search_fields = ["user", "game", "text"]
 
