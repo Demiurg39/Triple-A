@@ -11,7 +11,7 @@
     <thead>
       <tr>
         <th>Image</th>
-        <th>Product</th>
+        <th>Game</th>
         <th>Quantity</th>
         <th>Remove</th>
         <th>Unit price</th>
@@ -23,10 +23,10 @@
         {% with game=item.game %}
           <tr>
             <td>
-              <a href="{{ game.get_absolute_url }}">
+            <a href="{{ game.get_absolute_url }}">
                 <img src="{% if game.image %}{{ game.image.url }}
                 {% else %}{% static "img/no_image.png" %}{% endif %}">
-              </a>
+            </a>
             </td>
             <td>{{ game.name }}</td>
             <td>
@@ -56,7 +56,8 @@
     </tbody>
   </table>
   <p class="text-right">
-    <a href="{% url "main_app:game_list_main_page" %}" class="button light">Continue shopping</a>
+    <a href="{% url "main_app:game_list_main_page" %}" class="button
+    light">Continue shopping</a>
     <a href="{% url "orders:order_create" %}" class="button">Checkout</a>
   </p>
 {% endblock %}

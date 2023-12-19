@@ -14,11 +14,6 @@
             <div class="game-details">
               <h3>{{ game.name }}</h3>
               <p class="game-rating"><strong>Rating:</strong> {{ game.rating }}</p>
-              <form method="post" action="{% url 'cart:cart_add' game.id %}">
-                {% csrf_token %}
-                {{ cart_game_form }}
-                <button type="submit" class="btn btn-primary">Add to Cart</button>
-              </form>
               <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" class="btn btn-details">Learn More</a>
             </div>
           </div>

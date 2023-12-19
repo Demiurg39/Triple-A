@@ -47,7 +47,7 @@
         <button type="submit" class="btn btn-primary">Add Comment</button>
       </form>
     {% else %}
-      <p><a href="{% url 'login' %}">Log in</a> to add comments.</p>
+      <p><a href="{% url 'account:login' %}">Log in</a> to add comments.</p>
     {% endif %}
 
     {% for comment in game.comment_set.all %}

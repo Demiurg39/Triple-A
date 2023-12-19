@@ -1,4 +1,4 @@
-{% extends 'header.html' %}
+{% extends "header.html" %}
 
 {% block title %}Home{% endblock %}
 {% block header %}Welcome to TripleA{% endblock %}
@@ -58,11 +58,6 @@
               <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" style="margin-top: 10px; display: block; text-align: center; background-color: #333; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">
                 Details
               </a>
-
-              <form method="post" action="{% url 'cart:cart_add' game_id=game.id %}">
-                {% csrf_token %}
-                <input type="submit" value="Add to Cart" style="margin-top: 10px; display: block; text-align: center; background-color: #444; color: white; padding: 10px; text-decoration: none; border-radius: 5px; cursor: pointer;">
-              </form>
             </div>
           {% endfor %}
         </div>
