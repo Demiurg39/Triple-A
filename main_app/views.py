@@ -51,7 +51,7 @@ def add_comment(request, id, slug):
             comment.user = request.user
             comment.game = game
             comment.save()
-        return redirect("main_app:add_comment", id= id, slug=slug)
+            return redirect(reverse("main_app:game_detail", args=[game.id, game.slug]))
     else:
         form = CommentForm()
     return render(
@@ -79,17 +79,18 @@ def game_detail(request, id, slug):
 
 
 class Search(ListView):
-    template_name = "details_view.html"
-    context_object_name = "game"
+    template_name = "search_results.html"
+    context_object_name = "games"
     paginate_by = 5
 
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            # Используем оператор Q для объединения условий поиска
             return Games.objects.filter(
                 Q(name__icontains=query) | Q(description__icontains=query)
-            )
+            ).filter(
+                available=True
+            )  # фильтр для доступных игр, если это нужно
         else:
             return Games.objects.none()
 
