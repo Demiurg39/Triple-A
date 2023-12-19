@@ -17,7 +17,7 @@ def cart_add(request, game_id):
         cart.add(
             game=game,
             quantity=cd["quantity"],
-            override_quantity=cd["quantity"],
+            override_quantity=cd["override"],
         )
     return redirect("cart:cart_detail")
 
@@ -32,4 +32,8 @@ def cart_remove(request, game_id):
 
 def cart_detail(request):
     cart = Cart(request)
+    for item in cart:
+        item["update_quantity_form"] = CartAddGameForm(
+            initial={"quantity": item["quantity"], "override": True}
+        )
     return render(request, "cart/detail.html", {"cart": cart})
