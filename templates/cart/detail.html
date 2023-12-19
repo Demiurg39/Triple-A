@@ -16,6 +16,7 @@
         <th>Remove</th>
         <th>Unit price</th>
         <th>Price</th>
+        <th>Rent Key</th>  <!-- Added column for Rent Key -->
       </tr>
     </thead>
     <tbody>
@@ -45,19 +46,21 @@
             </td>
             <td class="num">${{ item.price }}</td>
             <td class="num">${{ item.total_price }}</td>
+            <td>
+              <a href="{% url 'rent_game' id=game.id slug=game.slug %}" class="button">Rent Key</a>
+            </td>
           </tr>
         {% endwith %}
       {% endfor %}
       <tr class="total">
         <td>Total</td>
-        <td colspan="4"></td>
+        <td colspan="5"></td>
         <td class="num">${{ cart.get_total_price }}</td>
       </tr>
     </tbody>
   </table>
   <p class="text-right">
-    <a href="{% url "main_app:game_list_main_page" %}" class="button
-    light">Continue shopping</a>
+    <a href="{% url "main_app:game_list_main_page" %}" class="button light">Continue shopping</a>
     <a href="{% url "orders:order_create" %}" class="button">Checkout</a>
   </p>
 {% endblock %}

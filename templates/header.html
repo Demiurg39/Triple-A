@@ -18,6 +18,7 @@
         <div class="user-greeting">
           <p>Hello {{ request.user.first_name|default:request.user.username }},</p>
           <p><a href="{% url 'account:logout' %}">Logout</a></p>
+          <p><a href="{% url 'account:edit' %}">Edit</a></p>
         </div>
       {% else %}
         <a href="{% url "account:login" %}">
