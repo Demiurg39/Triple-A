@@ -1,22 +1,56 @@
+<style>
+  .order-form {
+  float: left; /* Переместить order-form влево */
+  padding-left: 45px; /* Добавить отступ слева */
+  padding-right: 200px; /* Добавить отступ справа */
+  margin: 50px 40px 40px;
+}
+
+.order-info {
+  float: right; /* Переместить order-info вправо */
+  margin-right: 40px; /* Добавить отступ справа */
+  background-color: lightgrey;
+  width: 530px;
+  height: 190px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  margin: 50px 40px 40px;
+}
+#h3 {
+  padding: 10px;
+}
+
+#p {
+  padding: 0 10px;
+}
+
+.inp {
+  margin-top: 4rem;
+}
+
+</style>
+
+
+
 {% extends "header.html" %}
 {% block title %} Checkout {% endblock %}
 {% block content %}
-  <h1>Checkout</h1>
-  <div class="order-info">
-    <h3>Your order</h3>
-    <ul>
-      {% for item in cart %}
-        <li>
-          {{ item.quantity }}x {{ item.product.name }}
-          <span>${{ item.total_price }}</span>
-        </li>
-      {% endfor %}
-    </ul>
-    <p>Total: ${{ cart.get_total_price }}</p>
-  </div>
-  <form method="post" class="order-form">
-    {{ form.as_p }}
-    <p><input type="submit" value="Place order" /></p>
-    {% csrf_token %}
-  </form>
+<h1 class="order-form" id="h1">Checkout</h1>
+<div class="order-info">
+<h3 id="h3">Your order</h3>
+<ul>
+{% for item in cart %}
+  <li>
+    {{ item.quantity }}x {{ item.product.name }}
+    <span>${{ item.total_price }}</span>
+  </li>
+{% endfor %}
+</ul>
+<p id="p">Total: ${{ cart.get_total_price }}</p>
+</div>
+<form method="post" class="order-form inp">
+{{ form.as_p }}
+<p><input type="submit" value="Place order" /></p>
+{% csrf_token %}
+</form>
 {% endblock %}

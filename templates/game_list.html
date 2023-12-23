@@ -1,3 +1,54 @@
+<style>
+  .game-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .game-card {
+    flex: 0 0 calc(33.33% - 40px);
+    text-align: left;
+    margin: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .game-card h3 a {
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .game-card img {
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+
+  .game-card p {
+    margin-bottom: 10px;
+  }
+
+  .game-card a.details {
+    display: block;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+</style>
+
 {% extends "header.html" %}
 
 {% block title %}Home{% endblock %}
