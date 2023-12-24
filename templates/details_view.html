@@ -1,50 +1,41 @@
 {% extends 'header.html' %}
+{% load static %}
 
-{% block title %}{{ game.name }} - TripleA{% endblock %}
+{% block title %}{{ game.name }}{% endblock %}
 {% block header %}{{ game.name }}{% endblock %}
 
 {% block content %}
-  <div style="display: flex; justify-content: space-between;">
+  <div class="game-detail">
+  <img src="{% if game.image %}{{ game.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{ game.name }}">
+    <h1>{{ game.name }}</h1>
+    <h2>
+    </h2>
+    <p class="price">${{ game.price }}</p>
+    <form method="post" action="{% url 'cart:cart_add' game_id=game.id %}">
+      {% csrf_token %}
+      {{ cart_game_form }}
+      <input type="submit" value="Add to cart">
+    </form>
+    {{ game.description|linebreaks }}
 
-    <div style="width: 70%;">
-      <h3>{{ game.name }}</h3>
-      {% if game.image %}
-        <img src="{{ game.image.url }}" alt="{{ game.name }} Poster" style="max-width: 100%; height: auto; margin-bottom: 10px;">
-      {% endif %}
-      <p><strong>Rating:</strong> {{ game.rating }}</p>
-      <p><strong>Price:</strong> ${{ game.price }}</p>
-      <div style="margin-top: 10px;">
-        <form method="post" action="{% url 'cart:cart_add' game_id=game.id %}">
-          {% csrf_token %}
-          {{ cart_game_form }}
-          <button type="submit" class="btn btn-primary">Add to Cart</button>
-        </form>
-      </div>
-    </div>
-
-    <div style="width: 100%; margin-left: 20px;">
-      <p>{{ game.description }}</p>
-      <h4>System Requirements</h4>
-      <ul style="list-style-type: none; padding: 0;">
-        <li><strong>OS Version:</strong> {{ game.systemreq.OS_version }}</li>
-        <li><strong>CPU:</strong> {{ game.systemreq.CPU }}</li>
-        <li><strong>RAM:</strong> {{ game.systemreq.RAM }} GB</li>
-        <li><strong>GPU:</strong> {{ game.systemreq.GPU }}</li>
-        <li><strong>Storage:</strong> {{ game.systemreq.Storage }} GB</li>
-        <li><strong>Language (Dub):</strong> {{ game.systemreq.Language_dub }}</li>
-        <li><strong>Language (Sub):</strong> {{ game.systemreq.Language_sub }}</li>
-      </ul>
-    </div>
-
+    <ul style="list-style-type: none; padding: 0;">
+      <li><strong>OS Version:</strong> {{ game.systemreq.OS_version }}</li>
+      <li><strong>CPU:</strong> {{ game.systemreq.CPU }}</li>
+      <li><strong>RAM:</strong> {{ game.systemreq.RAM }} GB</li>
+      <li><strong>GPU:</strong> {{ game.systemreq.GPU }}</li>
+      <li><strong>Storage:</strong> {{ game.systemreq.Storage }} GB</li>
+      <li><strong>Language (Dub):</strong> {{ game.systemreq.Language_dub }}</li>
+      <li><strong>Language (Sub):</strong> {{ game.systemreq.Language_sub }}</li>
+    </ul>
   </div>
 
   <div style="margin-top: 20px;">
-    <h4>Comments</h4>
+    <h3>Comments:</h3>
     {% if request.user.is_authenticated %}
       <form method="post" action="{% url 'main_app:add_comment' id=game.id slug=game.slug %}">
         {% csrf_token %}
         {{ form.text }}
-        <button type="submit" class="btn btn-primary">Add Comment</button>
+        <input type="submit" value="Add comment">
       </form>
     {% else %}
       <p><a href="{% url 'account:login' %}">Log in</a> to add comments.</p>
@@ -52,7 +43,7 @@
 
     {% for comment in game.comment_set.all %}
       <div style="border: 1px solid #ddd; padding: 10px; margin-top: 10px;">
-        <p style="color: #777; font-size: 12px;">- {{ comment.user.username }}</p>
+        <p style="color: #000; font-size: 17px;">- {{ comment.user.username }}</p>
         <p>{{ comment.text }}</p>
       </div>
     {% endfor %}

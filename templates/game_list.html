@@ -1,69 +1,40 @@
 {% extends "header.html" %}
+{% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Games{% endif %}
+{% endblock %}
+
 {% block header %}Welcome to TripleA{% endblock %}
 
 {% block content %}
-  <section id="main-content" style="margin-bottom: 100px;">
-    <section id="categories" style="float: left; width: 20%; margin-right: 5%;">
-      <h2>Categories</h2>
-      {% if categories %}
-        <ul>
-          {% for category in categories %}
-            <li>
-              <a href="{% url 'main_app:game_list_by_category' category_slug=category.slug %}">
-                {{ category.name }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>No categories available.</p>
-      {% endif %}
-    </section>
-
-    <div id="header">
-      <div class="cart">
-        {% with total_items=cart|length %}
-          {% if total_items > 0 %}
-            Your cart:
-            <a href={% url "cart:cart_detail" %}>
-              {{ total_items }} item{{ total_items|pluralize }},
-              ${{ cart.get_total_price }}
-            </a>
-          {% elif not order %}
-            Your cart is empty.
-          {% endif %}
-        {% endwith %}
+<div id="sidebar">
+    <h3>Categories</h3>
+    <ul>
+      <li {% if not category %}class="selected"{% endif %}>
+        <a href="{% url "main_app:game_list_main_page" %}">All</a>
+      </li>
+      {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+          <a href="{% url 'main_app:game_list_by_category' category_slug=c.slug %}">
+            {{ c.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div id="main" class="game-list">
+    <h1>{% if category %}{{ category.name }}{% else %}Games{% endif %}</h1>
+    {% for game in games %}
+      <div class="item">
+        <a href="{{ game.get_absolute_url }}">
+          <img src="{% if game.image %}{{ game.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="width: 100%; object-fit: cover; margin-bottom: 10px;">
+        </a>
+        <a href="{{ game.get_absolute_url }}">{{ game.name }}</a>
+        <br>
+        ${{ game.price }}
+        ★{{ game.rating }}
       </div>
-    </div>
-
-    <section id="featured-games" style="float: left; width: 75%;">
-      {% if games %}
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-          {% for game in games %}
-            <div style="text-align: left; margin: 20px; width: 30%; border: 1px solid #ccc; padding: 15px; border-radius: 8px; overflow: hidden;">
-              <h3>
-                <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" style="margin-top: 10px; display: block; text-align: center; background-color: #333; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">
-                  {{ game.name }}
-                </a>
-              </h3>
-              {% if game.image %}
-                <img src="{{ game.image.url }}" alt="{{ game.name }} Poster" style="width: 100%; object-fit: cover; margin-bottom: 10px;">
-              {% endif %}
-              <p><strong>Rating:</strong> {{ game.rating }}</p>
-              <p><strong>Price:</strong> ${{ game.price }}</p>
-
-              <!-- Move the information above with the "Details" button -->
-              <a href="{% url 'main_app:game_detail' id=game.id slug=game.slug %}" style="margin-top: 10px; display: block; text-align: center; background-color: #333; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">
-                Details
-              </a>
-            </div>
-          {% endfor %}
-        </div>
-      {% else %}
-        <p>No games available.</p>
-      {% endif %}
-    </section>
-  </section>
+    {% endfor %}
+  </div>
 {% endblock %}
