@@ -28,7 +28,7 @@ def order_create(request):
                 )
             # clear the cart
             cart.clear()
-            # launch asynchronous task
+            # launch async task
             order_created.delay(order.id)
             # set the order in the session
             request.session["order_id"] = order.id

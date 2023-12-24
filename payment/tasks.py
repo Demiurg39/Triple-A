@@ -10,15 +10,15 @@ from orders.models import Order
 
 
 @shared_task
-def payment_completed(order_id):
+def payment_complete(order_id):
     """
-    Task to send an e-mail notification when an order is
-    successfully paid.
+    Async task to send notification
+    on email if payment complete
     """
     order = Order.objects.get(id=order_id)
-    # create invoice e-mail
-    subject = f"My Shop - Invoice no. {order.id}"
-    message = "Please, find attached the invoice for your recent purchase."
+
+    subject = f"TripleA - Invoice no. {order.id}"
+    message = "Please, find attached the invoice for your recent purchases"
     email = EmailMessage(
         subject,
         message,
