@@ -149,7 +149,7 @@ tbody tr.subtotal {
 
 thead th,
 tbody tr.total {
-  background: #5993bb;
+  background: #373634;
   color: #fff;
   font-weight: bold;
 }
@@ -322,11 +322,11 @@ ul.errorlist {
   background: #efefef;
   padding: 10px 20px;
   color: #333;
-  border-bottom: 4px solid #5993bb;
+  border-bottom: 4px solid #373634;
 }
 
 .order-info h3 {
-  color: #5993bb;
+  color: #373634;
 }
 
 .order-info ul li {
