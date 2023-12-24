@@ -160,24 +160,20 @@ USE_I18N = True
 USE_TZ = True
 
 # Email config
-# Config for sendgrid smtp
+# Config for gmail smtp
 
 # Set enveronment variable and uncomment
-# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
-# EMAIL_HOST = "smtp.sendgrid.net"
-# EMAIL_HOST_USER = "apikey"
-# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-
-# For send mail to email address
-# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-# DEFAULT_FROM_EMAIL = "triple-a@ruru.be"
-# SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+GOOGLE_SMTP_KEY = os.getenv("GOOGLE_SMTP_KEY")
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "triplea.shop.orders@gmail.com"
+EMAIL_HOST_PASSWORD = GOOGLE_SMTP_KEY
+DEFAULT_FROM_EMAIL = "triplea.shop.orders@gmail.com"
 
 # For send mail into console
-
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Stripe APIs
 
