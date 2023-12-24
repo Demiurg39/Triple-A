@@ -1,18 +1,61 @@
-{% extends 'header.html' %} {% block content %}
-<h1>Search Results</h1>
+{% extends 'header.html' %}
+{% block content %}
+<style>
+  .search-results-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
 
-{% if games %}
-<ul>
-  {% for game in games %}
-  <li>
-    <a href="{{ game.get_absolute_url }}">{{ game.name }}</a>
-    <p>{{ game.description }}</p>
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>No results found.</p>
-{% endif %}
+  .search-results {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-<p><a href="{% url 'main_app:game_list_main_page' %}">Back to game list</a></p>
+  .search-result-item {
+    margin: 10px;
+  }
+
+  .search-result-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  .search-result-item a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: block;
+    text-align: center
+  }
+</style>
+
+  <h1>Search Results</h1>
+
+  {% if games %}
+    <ul class="search-results">
+      {% for game in games %}
+        <li class="search-result-item">
+          <a href="{{ game.get_absolute_url }}">
+            <img src="{{ game.image.url }}">
+          </a>
+          <a href="{{ game.get_absolute_url }}">{{ game.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+
+  <p><a href="{% url 'main_app:game_list_main_page' %}">Back to game list</a></p>
 {% endblock %}
+
+
+

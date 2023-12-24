@@ -43,6 +43,8 @@
     <a href="{% url 'faq:faq' %}">FAQ</a>
 </div>
 
+{% include "search.html" %}
+
 <div id="subheader">
     <div class="cart">
         {% with total_items=cart|length %}
