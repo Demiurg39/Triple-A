@@ -272,13 +272,17 @@ ul.errorlist {
   overflow: hidden;
 }
 
+.game-list {
+  text-align: center; /* Center the items horizontally */
+}
+
 .game-list .item {
+  display: inline-block;
   width: 25%;
-  padding: 10px 20px 10px 0;
-  float: left;
+  padding: 10px 20px;
   text-align: center;
   line-height: 1.2;
-  margin-right: 20px; /* Adjust the value to your preference */
+  margin: 0 auto; /* Center the items horizontally */
   margin-bottom: 20px; /* Adjust the value to your preference */
 }
 
