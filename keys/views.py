@@ -1,13 +1,10 @@
 import uuid
-
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-
 from keys.models import Keys
 from main_app.models import Games
-
 from .forms import RentKeyForm
 from .tasks import send_rental_key_email
 

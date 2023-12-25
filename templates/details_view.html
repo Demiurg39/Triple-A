@@ -20,7 +20,7 @@
     <form method="post" action="{% url 'rent_game' id=game.id slug=game.slug %}">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Арендовать</button>
+      <input type="submit" value="Rent">
     </form>
     {{ game.description|linebreaks }}
 
