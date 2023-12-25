@@ -42,7 +42,7 @@ def rent_game(request, id, slug):
                 )
 
                 return HttpResponseRedirect(
-                    reverse("cart:cart_detail") + f"?rental_price={rental_price}"
+                    reverse("cart:cart_detail") + f"rental_price={rental_price}"
                 )
 
             except Exception as e:

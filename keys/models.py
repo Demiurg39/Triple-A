@@ -5,8 +5,8 @@ from main_app.models import Games
 
 
 class Keys(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='keys')
-    game = models.ForeignKey(Games, on_delete=models.CASCADE, related_name='keys')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    game = models.ForeignKey(Games, on_delete=models.CASCADE, related_name='game')
     code = models.CharField(max_length=50, unique=True)
     start_date = models.DateTimeField(default=timezone.now)
     period = models.IntegerField(default=7)
@@ -15,7 +15,7 @@ class Keys(models.Model):
     status = models.CharField(max_length=20, default='active')
 
     def calculate_rent_price(self):
-        return round(0.05 * float(self.game.price) * self.period, 2)
+        return round(self.discount * float(self.game.price) * self.period, 2)
 
     def end_date(self):
         return self.start_date + timezone.timedelta(days=self.period)

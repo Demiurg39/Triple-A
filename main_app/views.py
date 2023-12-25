@@ -68,12 +68,15 @@ def add_comment(request, id, slug):
 def game_detail(request, id, slug):
     game = get_object_or_404(Games, id=id, slug=slug, available=True)
     cart_game_form = CartAddGameForm()
+    game_price = float(game.price)
+    rental_price = round(0.05 * game_price * 7, 2)
     return render(
         request,
         "details_view.html",
         {
             "game": game,
             "cart_game_form": cart_game_form,
+            "rental_price": rental_price,
         },
     )
 

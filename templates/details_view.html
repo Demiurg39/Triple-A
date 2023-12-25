@@ -16,6 +16,12 @@
       {{ cart_game_form }}
       <input type="submit" value="Add to cart">
     </form>
+    <p class="price">${{ rental_price }}for a week</p>
+    <form method="post" action="{% url 'rent_game' id=game.id slug=game.slug %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Арендовать</button>
+    </form>
     {{ game.description|linebreaks }}
 
     <ul style="list-style-type: none; padding: 0;">

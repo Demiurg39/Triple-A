@@ -2,13 +2,10 @@
 
 {% block content %}
   <h2>Аренда игры: {{ game.name }}</h2>
-
   <form method="post" action="{% url 'rent_game' id=game.id slug=game.slug %}">
     {% csrf_token %}
     {{ form.as_p }}
-
-    <button type="submit">Арендовать</button>
+    <button type="submit" href="{% url 'cart:cart_detail'%}">Арендовать</button>
   </form>
-
   <a href="{% url 'cart:cart_detail' %}">Вернуться в корзину</a>
 {% endblock %}
