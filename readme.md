@@ -1,5 +1,5 @@
 Not e-comercial internet-markeplace.
-Mading by Triple-A group from Kyrgiz-German Institute of Aplied Informatics
+Made by Triple-A group from Kyrgiz-German Institute of Aplied Informatics
 Triple-A:
 Main programmers:
 * Duishembiev Aitegin (Aito)
